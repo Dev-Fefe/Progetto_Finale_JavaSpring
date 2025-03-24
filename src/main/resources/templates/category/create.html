@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:insert="~{index :: head}"></head>
+
+<body>
+  <head th:insert="~{index :: navbar}"></head>
+
+  <div class="vh-100">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 my-5 d-flex justify-content-between align-items-center">
+          <div class="d-flex justify-content-center align-items-center flex-grow-1">
+            <h1 th:text="${title}">Inserisci una categoria</h1>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 my-5">
+        <form th:action="@{/categories}" method="POST" th:object="${category}">
+          <div class="row mb-3">
+            <div class="col">
+              <label for="name" class="form-label">Nome categoria</label>
+              <input id="name" type="text" class="form-control" th:field="*{name}"
+                placeholder="Inserisci il nome della categoria...">
+              <p th:errors="*{name}" class="text-danger" th:if="${#fields.hasErrors('name')}"></p>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-success">Crea categoria</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <head th:insert="~{index :: footer}"></head>
+  <script th:replace="~{index :: bootstrapScript}"></script>
+</body>
+
+</html>

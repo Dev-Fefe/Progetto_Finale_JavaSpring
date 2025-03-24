@@ -1,0 +1,42 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{index :: head}"></head>
+<body>
+    <head th:insert="~{index :: navbar}"></head>
+
+    <div class="vh-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 my-5 d-flex justify-content-between align-items-center">
+                    <div class="d-flex justify-content-center align-items-center flex-grow-1">
+                        <h1 th:text="${title}">Richiesta collaborazione:</h1>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 my-5">
+                <form th:action="@{/operations/career/request/save}" method="POST" th:object="${careerRequest}" enctype="multipart/form-data">
+                    <div class="mb-3">
+                        <label for="body" class="form-label">Motivo della richiesta:</label>
+                        <textarea id="body" class="form-control" th:field="*{body}"
+                            placeholder="Inserisci motivazione...."></textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="role" class="form-label">Per quale ruolo?</label>
+                        <select id="role" th:field="*{role}" class="form-select">
+                            <option th:each="role:${roles}" th:value="${role.id}"
+                                th:text="${#strings.substring(role.name, 5)}"></option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-success">Effettua richiesta</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <head th:insert="~{index :: footer}"></head>
+    <script th:replace="~{index :: bootstrapScript}"></script>
+</body>
+</html>

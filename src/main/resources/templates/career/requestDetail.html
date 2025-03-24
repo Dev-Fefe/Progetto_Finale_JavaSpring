@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{index :: head}"></head>
+<body>
+    <head th:insert="~{index :: navbar}"></head>
+
+    <div class="vh-100">
+        <div class="container-fluid p-5 bg-secondary-subtle text-center">
+            <div class="row justify-content-center">
+                <div class="col-12">
+                    <span class="h1">Richiesta</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="container my-5">
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-8 d-flex flex-column">
+                    <div class="text-center">
+                        <h2 th:text="${request.user.username}">Nome utente</h2>
+                    </div>
+                    <hr>
+                    <div class="col-12 col-md-8 d-flex flex-column align-items-center">
+                        <p th:text="${request.body}">Body</p>
+                    </div>
+                    <div class="d-flex">
+                        <form th:action="@{/operations/career/request/accept/{id}(id=${request.id})}" method="post">
+                            <button type="submit" class="btn btn-primary m-2">
+                                Accetta
+                            </button>
+                        </form>
+                        <form th:action="@{/operations/career/request/reject/{id}(id=${request.id})}" method="post">
+                            <button type="submit" class="btn btn-danger m-2">
+                                Rifiuta
+                            </button>
+                        </form>
+                        <a th:href="@{/admin/dashboard}" class="btn btn-primary m-2">
+                            Torna Indietro
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <head th:insert="~{index :: footer}"></head>
+    <script th:replace="~{index :: bootstrapScript}"></script>
+</body>
+
+</html>

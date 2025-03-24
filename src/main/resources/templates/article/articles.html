@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:insert="~{index :: head}"></head>
+<body>
+
+<head th:insert="~{index :: navbar}"></head>
+
+<div class="min-vh-100">
+    <div th:if="${successMessage}" class="alert alert-success">
+        <p th:text="${successMessage}"></p>
+    </div>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-10 mb-5">
+                <h1 class="text-center" th:text="${title}">Index article</h1>
+            </div>
+        </div>
+    </div>
+
+    <div class="container" th:if="${articles.size() > 0}">
+        <div class="row justify-content-center mb-5">
+            <div th:each="article : ${articles}" class="col-12 col-md-4 d-flex justify-content-center">
+                <div class="card mb-3" style="width: 18rem;">
+                    <img th:if="${article.image != null}" th:src="${article.image.path}" class="card-img-top" alt="...">
+                    <img th:unless="${article.image != null}" th:src="@{/images/default.jpg}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${article.title}"></h5>
+                        <p class="card-text" th:text="${article.subtitle}"></p>
+                        <p class="card-text" th:text="${article.user.username}"></p>
+                        <a th:href="@{/articles/detail/{id}(id=${article.id})}" class="btn btn-primary">Leggi</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center vh-100" th:unless="${articles.size() > 0}">
+        <div class="col-10 mb-5">
+            <h1 class="text-center">NESSUN ARTICOLO PRESENTE:</h1>
+        </div>
+    </div>
+</div>
+    <head th:insert="~{index :: footer}"></head>
+    <script th:replace="~{index :: bootstrapScript}"></script>
+</body>
+
+</html>
